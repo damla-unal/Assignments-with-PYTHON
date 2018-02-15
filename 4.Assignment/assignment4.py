@@ -4,29 +4,23 @@ import sys
 first_file=sys.argv[1]
 parametre=sys.argv[2].split(",")
 
-
-
 def retrieveData(filename,listofnominee):
     file=open(filename,"r")
     outfile=open("retrievedData.txt","w")
-
 
     global parametre2
     parametre2=[]
     parametre2.extend(listofnominee)
 
-
     global ilksatır
     ilksatır=file.readline().rstrip("\n").split(",")
     kalan=file.readlines()
-
 
     global liste
     global int_oy
     liste=[]
     for k in kalan:
         liste.append(k.rstrip("\n").split(","))
-
 
     oylar=[]
 
@@ -42,10 +36,8 @@ def retrieveData(filename,listofnominee):
     outfile.writelines(str(int_oy))
     return int_oy
 
-
     outfile.close()
 retrieveData(first_file,parametre)
-
 
 def DispBarPlot():
 
@@ -69,7 +61,6 @@ def DispBarPlot():
         liste1.append(x)
         liste1.append(y)
         liste1.append(z)
-
 
     else:
         liste1=[]
@@ -104,11 +95,8 @@ def DispBarPlot():
     b1=[int(i) for i in b]
 
 
-
     sözlük[isimler[0]]=a1
     sözlük[isimler[1]]=b1
-
-
 
         # data to plot
 
@@ -120,8 +108,6 @@ def DispBarPlot():
     index = np.arange(len(s_obama))
     bar_width = 0.35
     opacity = 0.8
-
-
 
     #fig = plt.figure()
     y1 = plt.bar(index, s_romney, bar_width,
@@ -147,37 +133,26 @@ DispBarPlot()
 
 def compareVoteonBar():
 
-
     index=[]
     for t in parametre2:
         index.append(ilksatır.index(t))
 
-
     if len(int_oy)==51*len(index):
-
-
         x=sum(int_oy[:51])
         y=sum(int_oy[51:102])
         z=sum(int_oy[102:153])
         t=sum(int_oy[153:204])
 
-
     total=sum(int_oy)
 
-
     x1=round(x*100/total,3)
-
     y1=round(y*100/total,3)
-
     z1=round(z*100/total,3)
-
     t1=round(t*100/total,3)
-
 
     objects = [x1,y1,z1,t1]
     y_pos = np.arange(len(objects))
     performance = [x1,y1,z1,t1]
-
     for i in parametre2:
         if parametre2.index(i)==0:
             plt.bar(y_pos, performance, align='center', alpha=0.7,color="rbyc",label="{}".format(i))
@@ -191,19 +166,15 @@ def compareVoteonBar():
         elif parametre2.index(i)==3:
             plt.bar(y_pos, performance, align='center', alpha=0.7,color="rbyc",label="{}".format(i))
 
-
     #fig = plt.figure()
     plt.xticks(y_pos, objects)
     plt.ylabel('Vote Percentages')
     plt.title('Nominees')
     plt.legend()
     plt.savefig("CompVotePercs.pdf")
-
     plt.close()
 
-
 compareVoteonBar()
-
 
 def obtainHistogram(liste):
 
@@ -216,12 +187,10 @@ def obtainHistogram(liste):
             str_liste.remove(s)
             a= "0"+s
             str_liste.append(a)
-
     digits=[]
     for t in str_liste:
         digits.append(t[-1])
         digits.append(t[len(t)-2])
-
 
     sıfır=digits.count("0")
     bir=digits.count("1")
@@ -233,8 +202,6 @@ def obtainHistogram(liste):
     yedi=digits.count("7")
     sekız=digits.count("8")
     dokuz=digits.count("9")
-
-    #global sıklık
     sıklık=[]
     sıklık.append(sıfır/(len(liste)*2))
     sıklık.append(bir/(len(liste)*2))
@@ -248,9 +215,6 @@ def obtainHistogram(liste):
     sıklık.append(dokuz/(len(liste)*2))
 
     return sıklık
-
-
-
 
 from pylab import *
 
@@ -372,15 +336,12 @@ def plotHistogramWithSample():
 
 plotHistogramWithSample()
 
-
 def calculateMSE(list_1,list_2):
     global MSE
     MSE=[]
     for i in range(len(list_1)):
         MSE.append((list_1[i]-list_2[i])**2)
     return sum(MSE)
-
-
 
 def compareMSEs():
 
@@ -393,7 +354,6 @@ def compareMSEs():
     for a in step9:
          Mses.append(calculateMSE(a,[0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1]))
 
-
     global büyük
     global küçük
     büyük=[]
@@ -403,9 +363,6 @@ def compareMSEs():
             büyük.append(m)
         elif sum(MSE)>m:
             küçük.append(m)
-
-
-
 compareMSEs()
 
 answer=open("myAnswer.txt","w")
@@ -422,41 +379,8 @@ answer.write("2012 USA election rejection level p is {}\n".format(len(küçük)/
 if len(büyük)<=500:
     print("Finding: We reject the null hypothesis at the p={} level".format(format(len(küçük)/10000)))
     answer.write("Finding: We reject the null hypothesis at the p={} level\n".format(format(len(küçük)/10000)))
-
 else:
     print("Finding: There is no statistical evidence to reject null hypothesis")
     answer.write("Finding: There is no statistical evidence to reject null hypothesis\n")
 
 answer.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
