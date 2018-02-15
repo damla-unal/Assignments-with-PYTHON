@@ -1,6 +1,4 @@
 #------------------------------------------------------------#
-# Student Name:Damla Nur Ünal
-# Student ID:21527511
 # BBM103 Introduction to Programming Laboratory I, Fall 2016
 # Assignment 3: Mission: Save the Earth
 #------------------------------------------------------------#
